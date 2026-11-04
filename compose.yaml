@@ -1,0 +1,23 @@
+services:
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: roselle
+      MYSQL_USER: roselle
+      MYSQL_PASSWORD: roselle_dev
+      MYSQL_ROOT_PASSWORD: root_dev
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql #nomeado
+
+  app:
+    build:
+      context:
+      dockerfile: dockerfile
+    working_dir: /var/www
+    depends_on:
+      - db
+
+volumes:
+  mysql_data: #declaracao do volume nomeado.
